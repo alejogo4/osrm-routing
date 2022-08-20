@@ -17,10 +17,10 @@ var de = L.tileLayer(
 
 module.exports = {
   defaultState: {
-    center: L.latLng(6.03526, -75.486417),
+    center: L.latLng(6.026968, -75.486996),
     zoom: 15,
     waypoints: [],
-    language: "es",
+    language: "en",
     alternative: 0,
     layer: de,
     service: 1,
@@ -28,17 +28,17 @@ module.exports = {
   services: [
     {
       label: "Car",
-      path: "/routed-car/route/v1",
+      path: "https://routing.openstreetmap.de/routed-car/route/v1",
       debug: "car",
     },
     {
       label: "Bike",
-      path: "/routed-bike/route/v1",
+      path: "https://routing.openstreetmap.de/routed-bike/route/v1",
       debug: "bike",
     },
     {
       label: "Foot",
-      path: "/routed-foot/route/v1",
+      path: "https://routing.openstreetmap.de/routed-foot/route/v1",
       debug: "foot",
     },
   ],
