@@ -1,51 +1,58 @@
-'use strict';
+"use strict";
 
-var L = require('leaflet');
+var L = require("leaflet");
 
-var de = L.tileLayer('//{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
-    attribution: '<a target="_blank" href="http://www.openstreetmap.org/">Karte hergestellt aus OpenStreetMap-Daten</a> | Lizenz: <a rel="license" target="_blank" href="http://opendatacommons.org/licenses/odbl/">Open Database License (ODbL)</a>'
+var de = L.tileLayer(
+    "//{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png",
+    {
+      attribution:
+        '<a target="_blank" href="http://www.openstreetmap.org/">Karte hergestellt aus OpenStreetMap-Daten</a> | Lizenz: <a rel="license" target="_blank" href="http://opendatacommons.org/licenses/odbl/">Open Database License (ODbL)</a>',
+    }
+  ),
+  standard = L.tileLayer("//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '© <a href="/copyright">OpenStreetMap contributors</a>',
   }),
-  standard = L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© <a href="/copyright">OpenStreetMap contributors</a>'
-  }),
-
-  hiking = L.tileLayer('//tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {}),
-  bike = L.tileLayer('//tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png', {})
+  hiking = L.tileLayer("//tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png", {}),
+  bike = L.tileLayer("//tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png", {});
 
 module.exports = {
   defaultState: {
-    center: L.latLng(50, 12),
+    center: L.latLng(6.027448, 75.480494),
     zoom: 7,
     waypoints: [],
-    language: 'en',
+    language: "es",
     alternative: 0,
     layer: de,
-    service: 1
+    service: 1,
   },
-  services: [{
-    label: 'Car',
-    path: '/routed-car/route/v1',
-    debug: 'car',
-  },
-  {
-    label: 'Bike',
-    path: '/routed-bike/route/v1',
-    debug: 'bike',
-  },
-  {
-    label: 'Foot',
-    path: '/routed-foot/route/v1',
-    debug: 'foot',
-  }],
-  layer: [{
-    'openstreetmap.de': de,
-    'openstreetmap.org': standard,
-  }],
+  services: [
+    {
+      label: "Car",
+      path: "/routed-car/route/v1",
+      debug: "car",
+    },
+    {
+      label: "Bike",
+      path: "/routed-bike/route/v1",
+      debug: "bike",
+    },
+    {
+      label: "Foot",
+      path: "/routed-foot/route/v1",
+      debug: "foot",
+    },
+  ],
+  layer: [
+    {
+      "openstreetmap.de": de,
+      "openstreetmap.org": standard,
+    },
+  ],
   overlay: {
-    'hiking': hiking,
-    'bike': bike,
+    hiking: hiking,
+    bike: bike,
   },
   baselayer: {
     one: standard,
-  }
+  },
 };
