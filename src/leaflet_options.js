@@ -17,8 +17,8 @@ var de = L.tileLayer(
 
 module.exports = {
   defaultState: {
-    center: L.latLng(6.027448, 75.480494),
-    zoom: 7,
+    center: L.latLng(6.03526, -75.486417),
+    zoom: 15,
     waypoints: [],
     language: "es",
     alternative: 0,
