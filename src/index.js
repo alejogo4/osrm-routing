@@ -256,8 +256,8 @@ lrmControl.on("routeselected", function (e) {
     properties: {
       name: route.name,
       copyright: {
-        author: "OpenStreetMap contributors",
-        license: "http://www.openstreetmap.org/copyright",
+        author: "Montesereno",
+        license: "https://www.montesereno.com.co/",
       },
       link: {
         href: window.document.location.href,
