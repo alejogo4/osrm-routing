@@ -19,12 +19,17 @@ var local = localization.get(mergedOptions.language);
 
 //Location
 var initLatitude, initLongitude;
-var initLocation = navigator.geolocation
-  ? navigator.geolocation.getCurrentPosition((position) => {
-      initLatitude = position.coords.latitude;
-      initLongitude = position.coords.longitude;
-    })
-  : null;
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(showPosition);
+} else {
+  document.getElementById("window").innerHTML =
+    "Geolocation is not supported by this browser.";
+}
+
+function showPosition(position) {
+  initLatitude = position.coords.latitude;
+  initLongitude = position.coords.longitude;
+}
 
 // load only after language was chosen
 var itineraryBuilder = require("./itinerary_builder")(mergedOptions.language);
@@ -77,8 +82,9 @@ map.on("overlayremove", function (e) {
 });
 
 setInterval(() => {
-  if (initLocation) {
-    console.log("first");
+  console.log("firstAAA");
+  if (initLatitude) {
+    console.log(initLatitude, initLongitude);
   }
 }, 1000);
 
