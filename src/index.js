@@ -127,7 +127,7 @@ var plan = new ReversablePlan([], {
       icon: makeIcon(i, n),
     };
     var marker = L.marker(wp.latLng, options);
-    console.log(wp.latLng, options);
+
     marker.on("click", function () {
       plan.spliceWaypoints(i, 1);
     });
@@ -244,9 +244,11 @@ function addWaypoint(waypoint) {
   });
   length = length.length;
   if (!length) {
+    //Initial destination
     lrmControl.spliceWaypoints(0, 1, waypoint);
   } else {
     if (length === 1) length = length + 1;
+    //Final destination
     lrmControl.spliceWaypoints(length - 1, 1, waypoint);
   }
 }
@@ -319,11 +321,28 @@ L.control
   .addTo(map);
 
 //Change to points search
+
 const finalDestinyLat = 6.028553;
 const finalDestinyLong = -75.489877;
-addWaypoint(L.latLng(finalDestinyLat, finalDestinyLong));
+
+addWaypoint();
+
+function addCustomWaypoint(origin, destination) {
+  var length = lrmControl.getWaypoints().filter(function (pnt) {
+    return pnt.latLng;
+  });
+  length = length.length;
+
+  lrmControl.spliceWaypoints(0, 1, origin);
+  console.log(length);
+  lrmControl.spliceWaypoints(1, 1, destination);
+}
 
 setInterval(function () {
   navigator.geolocation.getCurrentPosition(showPosition);
-  addWaypoint(L.latLng(initLatitude, initLongitude));
+  //addWaypoint();
+  addCustomWaypoint(
+    L.latLng(initLatitude, initLongitude),
+    L.latLng(finalDestinyLat, finalDestinyLong)
+  );
 }, 2000);
