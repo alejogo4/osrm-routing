@@ -81,7 +81,7 @@ map.on("overlayremove", function (e) {
   ls.set("getOverlay", false);
 });
 
-setInterval(() => {
+setInterval(function () {
   console.log("firstAAA");
   if (initLatitude) {
     console.log(initLatitude, initLongitude);
