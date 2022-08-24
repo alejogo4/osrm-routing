@@ -81,13 +81,6 @@ map.on("overlayremove", function (e) {
   ls.set("getOverlay", false);
 });
 
-setInterval(function () {
-  console.log("firstAAA");
-  if (initLatitude) {
-    console.log(initLatitude, initLongitude);
-  }
-}, 1000);
-
 /* OSRM setup */
 var ReversablePlan = L.Routing.Plan.extend({
   createGeocoders: function () {
@@ -134,6 +127,7 @@ var plan = new ReversablePlan([], {
       icon: makeIcon(i, n),
     };
     var marker = L.marker(wp.latLng, options);
+    console.log(wp.latLng, options);
     marker.on("click", function () {
       plan.spliceWaypoints(i, 1);
     });
@@ -323,3 +317,13 @@ L.control
     locateOptions: {},
   })
   .addTo(map);
+
+//Change to points search
+const finalDestinyLat = 6.028553;
+const finalDestinyLong = -75.489877;
+addWaypoint(L.latLng(finalDestinyLat, finalDestinyLong));
+
+setInterval(function () {
+  navigator.geolocation.getCurrentPosition(showPosition);
+  addWaypoint(L.latLng(initLatitude, initLongitude));
+}, 2000);
