@@ -17,6 +17,15 @@ var parsedOptions = links.parse(window.location.search.slice(1));
 var mergedOptions = L.extend(leafletOptions.defaultState, parsedOptions);
 var local = localization.get(mergedOptions.language);
 
+//Location
+var initLatitude, initLongitude;
+var initLocation = navigator.geolocation
+  ? navigator.geolocation.getCurrentPosition((position) => {
+      initLatitude = position.coords.latitude;
+      initLongitude = position.coords.longitude;
+    })
+  : null;
+
 // load only after language was chosen
 var itineraryBuilder = require("./itinerary_builder")(mergedOptions.language);
 
@@ -66,6 +75,12 @@ map.on("overlayadd", function (e) {
 map.on("overlayremove", function (e) {
   ls.set("getOverlay", false);
 });
+
+setInterval(() => {
+  if (initLocation) {
+    console.log("first");
+  }
+}, 1000);
 
 /* OSRM setup */
 var ReversablePlan = L.Routing.Plan.extend({
