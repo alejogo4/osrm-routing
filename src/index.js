@@ -334,8 +334,9 @@ function addCustomWaypoint(origin, destination) {
   length = length.length;
 
   lrmControl.spliceWaypoints(0, 1, origin);
-  console.log(length);
-  lrmControl.spliceWaypoints(1, 1, destination);
+  if (length <= 1) {
+    lrmControl.spliceWaypoints(1, 1, destination);
+  }
 }
 
 setInterval(function () {
