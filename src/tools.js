@@ -52,6 +52,8 @@ var Control = L.Control.extend({
       "leaflet-osrm-tools-localization",
       this._container
     );
+    //Custom Input
+    this._drawSearch();
     this._createLocalizationList(this._localizationContainer);
     return this._container;
   },
@@ -119,6 +121,25 @@ var Control = L.Control.extend({
         "&z=" +
         zoom
     );
+  },
+
+  _drawSearch: function () {
+    var search = L.DomUtil.create("div", "search-firebase", this._container);
+    var input = L.DomUtil.create("input", "share-container", search);
+    input.setAttribute("placeholder", "Ingresa el lote hacia donde te diriges");
+    L.DomUtil.create("div", "icon-search", search);
+
+    L.DomEvent.on(
+      input,
+      "keypress",
+      function (e) {
+        L.DomEvent.stopPropagation(e);
+        console.log("HEREEE");
+      },
+      this
+    );
+
+    const result = L.DomUtil.create("div", "results-search", search);
   },
 
   _showSharePopup: function () {
