@@ -150,7 +150,7 @@ var Control = L.Control.extend({
         cutFindPoints.map(function (_finded, index) {
           var myLi = L.DomUtil.create("li", "itemSearched", myUl);
           const liP = document.getElementsByClassName("itemSearched")[index];
-          liP.innerHTML = `<p>` + _finded.lote + "</p>";
+          liP.innerHTML = "<p>" + _finded.lote + "</p>";
           L.DomEvent.on(myLi, "click", function (e) {
             this.finalDestinyLat = _finded.lat;
             this.finalDestinyLong = _finded.lan;
