@@ -346,8 +346,8 @@ L.control
 
 //Change to points search
 
-var finalDestinyLat = 6.028553;
-var finalDestinyLong = -75.489877;
+var finalDestinyLat = null;
+var finalDestinyLong = null;
 
 addWaypoint();
 
@@ -357,8 +357,10 @@ function addCustomWaypoint(origin, destination) {
   });
   length = length.length;
 
+  console.log("A");
   lrmControl.spliceWaypoints(0, 1, origin);
   if (length <= 1) {
+    console.log("B");
     lrmControl.spliceWaypoints(1, 1, destination);
   }
 }
@@ -371,11 +373,13 @@ setInterval(function () {
     if (finalDestinyLat != point.lat) {
       finalDestinyLat = point.lat;
       finalDestinyLong = point.lan;
-      console.log(finalDestinyLat, finalDestinyLong);
     }
   }
-  addCustomWaypoint(
-    L.latLng(initLatitude, initLongitude),
-    L.latLng(finalDestinyLat, finalDestinyLong)
-  );
+  if (finalDestinyLat && finalDestinyLong) {
+    console.log(finalDestinyLat, finalDestinyLong);
+    addCustomWaypoint(
+      L.latLng(initLatitude, initLongitude),
+      L.latLng(finalDestinyLat, finalDestinyLong)
+    );
+  }
 }, 2000);
