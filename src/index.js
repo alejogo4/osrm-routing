@@ -1,6 +1,5 @@
 "use strict";
 
-localStorage.clear();
 var L = require("leaflet");
 var Geocoder = require("leaflet-control-geocoder");
 var LRM = require("leaflet-routing-machine");
@@ -15,7 +14,6 @@ var localization = require("./localization");
 require("./polyfill");
 
 var parsedOptions = links.parse(window.location.search.slice(1));
-console.log(parsedOptions);
 var mergedOptions = L.extend(leafletOptions.defaultState, parsedOptions);
 var local = localization.get(mergedOptions.language);
 
@@ -217,6 +215,7 @@ var lrmControl = L.Routing.control(
     router: router,
   })
 ).addTo(map);
+
 var toolsControl = tools
   .control(
     localization.get(mergedOptions.language),
@@ -375,3 +374,15 @@ setInterval(function () {
     );
   }
 }, 2000);
+
+var url = new URL(window.location.href);
+
+if (!url.searchParams.get("srv")) {
+  localStorage.clear();
+} else {
+  var point = localStorage.getItem("point");
+  point
+    ? (document.getElementsByClassName("share-container")[0].value =
+        JSON.parse(point).lote)
+    : null;
+}

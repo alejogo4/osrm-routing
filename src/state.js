@@ -70,6 +70,21 @@ var State = L.Class.extend({
 
   set: function (options) {
     var self = this;
+    var container = document.getElementsByClassName(
+      "leaflet-control-container"
+    )[0];
+    var buttonsServices = L.DomUtil.create("div", "button-services", container);
+    var car = L.DomUtil.create(
+      "button",
+      "button-services-action",
+      buttonsServices
+    );
+    var foot = L.DomUtil.create(
+      "button",
+      "button-services-action",
+      buttonsServices
+    );
+
     L.setOptions(this, options);
     L.Util.setOptions(this._lrm.options.router, {
       serviceUrl:
@@ -79,6 +94,7 @@ var State = L.Class.extend({
     profileSelector.selectedIndex = this.options.service;
     var services = self._lrm.options.router.options.services;
     L.DomEvent.addListener(profileSelector, "change", function () {
+      console.log("first");
       if (
         profileSelector.selectedIndex >= 0 &&
         profileSelector.selectedIndex < services.length
@@ -89,6 +105,18 @@ var State = L.Class.extend({
     if (this.options.service >= 0 && this.options.service < services.length) {
       self._tools.setProfile(services[this.options.service]);
     }
+
+    L.DomEvent.addListener(car, "click", function () {
+      var searchParams = new URLSearchParams(window.location.search);
+      searchParams.set("srv", "0");
+      window.location.search = searchParams.toString();
+    });
+
+    L.DomEvent.addListener(foot, "click", function () {
+      var searchParams = new URLSearchParams(window.location.search);
+      searchParams.set("srv", "2");
+      window.location.search = searchParams.toString();
+    });
     this._lrm.setWaypoints(this.options.waypoints);
     this._map.setView(this.options.center, this.options.zoom);
   },

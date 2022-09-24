@@ -1162,3 +1162,59 @@ td.distance {
   /* margin-left: 16px; */
   text-align: center;
 }
+
+.leaflet-control-layers,
+.leaflet-routing-select-profile {
+  display: none !important;
+}
+
+.language-button {
+  background-color: white;
+}
+
+.language-button select {
+  color: #979696;
+}
+
+.button-services {
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border-radius: 12px 12px 0 0;
+  align-items: center;
+  justify-content: space-between;
+  width: 101px;
+  padding: 12px;
+  display: flex;
+}
+
+.button-services button {
+  border: none;
+  box-shadow: none;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+.button-services button:first-child {
+  background: url("../images/car.png");
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.button-services button:last-child {
+  background: url("../images/walking.png");
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.button-services button {
+  border-radius: 8px;
+  border: 1px solid rgb(209, 209, 209) !important;
+  padding: 4px;
+}

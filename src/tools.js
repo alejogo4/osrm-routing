@@ -31,24 +31,11 @@ var Control = L.Control.extend({
     var gpxContainer, gpxButton;
     this._container = L.DomUtil.create(
       "div",
-      "leaflet-osrm-tools-container " + this.options.toolsContainerClass
+      "leaflet-osrm-tools-container language-button " +
+        this.options.toolsContainerClass
     );
     L.DomEvent.disableClickPropagation(this._container);
 
-    gpxContainer = L.DomUtil.create(
-      "div",
-      "leaflet-osrm-tools-gpx",
-      this._container
-    );
-    gpxButton = L.DomUtil.create(
-      "span",
-      this.options.gpxButtonClass,
-      gpxContainer
-    );
-    this._gpxButton = gpxButton;
-    gpxButton.title = this._local["GPX"];
-    gpxButton.setAttribute("disabled", "");
-    L.DomEvent.on(gpxButton, "click", this._downloadGPX, this);
     this._localizationContainer = L.DomUtil.create(
       "div",
       "leaflet-osrm-tools-localization",
@@ -256,14 +243,7 @@ var Control = L.Control.extend({
     }
   },
 
-  setRouteGeoJSON: function (routeGeoJSON) {
-    this.routeGeoJSON = routeGeoJSON;
-    if (this.routeGeoJSON) {
-      this._gpxButton.removeAttribute("disabled");
-    } else {
-      this._gpxButton.setAttribute("disabled", "");
-    }
-  },
+  setRouteGeoJSON: function (routeGeoJSON) {},
 
   setPoints: function (points) {
     this._points = points;
