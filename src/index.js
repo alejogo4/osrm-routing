@@ -1,5 +1,6 @@
 "use strict";
 
+localStorage.clear();
 var L = require("leaflet");
 var Geocoder = require("leaflet-control-geocoder");
 var LRM = require("leaflet-routing-machine");
@@ -12,6 +13,17 @@ var tools = require("./tools");
 var state = require("./state");
 var localization = require("./localization");
 require("./polyfill");
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAoEbGJGO9MGd0xZzyjhcyCYwELVH2Xh2g",
+  authDomain: "monteserenoapp-91eed.firebaseapp.com",
+  projectId: "monteserenoapp-91eed",
+  storageBucket: "monteserenoapp-91eed.appspot.com",
+  messagingSenderId: "698220860239",
+  appId: "1:698220860239:web:7f00820548d8bb74722b3a",
+};
+
+// Initialize Firebase
 
 var parsedOptions = links.parse(window.location.search.slice(1));
 var mergedOptions = L.extend(leafletOptions.defaultState, parsedOptions);
@@ -219,9 +231,32 @@ var toolsControl = tools
   .control(
     localization.get(mergedOptions.language),
     localization.getLanguages(),
-    options.tools
+    options.tools,
+    [1, 2, 3]
   )
   .addTo(map);
+var requestOptions = {
+  method: "GET",
+  redirect: "follow",
+};
+
+var data = null;
+
+fetch(
+  "https://monteserenoapp-91eed-default-rtdb.firebaseio.com/Points.json",
+  requestOptions
+)
+  .then(function (response) {
+    return response.text();
+  })
+  .then(function (result) {
+    data = Object.values(JSON.parse(result));
+    toolsControl.setPoints(data);
+  })
+  .catch(function (error) {
+    return console.log("error", error);
+  });
+
 var state = state(map, lrmControl, toolsControl, mergedOptions);
 
 plan.on("waypointgeocoded", function (e) {
@@ -322,8 +357,8 @@ L.control
 
 //Change to points search
 
-const finalDestinyLat = 6.028553;
-const finalDestinyLong = -75.489877;
+var finalDestinyLat = 6.028553;
+var finalDestinyLong = -75.489877;
 
 addWaypoint();
 
@@ -342,6 +377,14 @@ function addCustomWaypoint(origin, destination) {
 setInterval(function () {
   navigator.geolocation.getCurrentPosition(showPosition);
   //addWaypoint();
+  if (localStorage.getItem("point")) {
+    var point = JSON.parse(localStorage.getItem("point"));
+    if (finalDestinyLat != point.lat) {
+      finalDestinyLat = point.lat;
+      finalDestinyLong = point.lan;
+      console.log(finalDestinyLat, finalDestinyLong);
+    }
+  }
   addCustomWaypoint(
     L.latLng(initLatitude, initLongitude),
     L.latLng(finalDestinyLat, finalDestinyLong)

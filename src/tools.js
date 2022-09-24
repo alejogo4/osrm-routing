@@ -17,12 +17,14 @@ var Control = L.Control.extend({
     shareButtonClass: "",
     gpxButtonClass: "",
     localizationChooserClass: "",
+    finalDestinyLat: "",
   },
 
-  initialize: function (localization, languages, options) {
+  initialize: function (localization, languages, options, points) {
     L.setOptions(this, options);
     this._local = localization;
     this._languages = languages;
+    this._points = points;
   },
 
   onAdd: function (map) {
@@ -128,20 +130,39 @@ var Control = L.Control.extend({
     var input = L.DomUtil.create("input", "share-container", search);
     input.setAttribute("placeholder", "Ingresa el lote hacia donde te diriges");
     L.DomUtil.create("div", "icon-search", search);
+    const result = L.DomUtil.create("div", "results-search", search);
 
     L.DomEvent.on(
       input,
       "keypress",
       function (e) {
-        L.DomEvent.stopPropagation(e);
-        console.log("HEREEE");
+        var term = document.getElementsByClassName("share-container")[0].value;
+
+        const findPoints = this._points.filter(function (point) {
+          const _point = point.lote.toLowerCase();
+          return _point.includes(term.toLowerCase());
+        });
+        const cutFindPoints = findPoints.slice(0, 5);
+
+        result.innerHTML = "";
+        var myUl = L.DomUtil.create("ul", "listSearch", result);
+
+        cutFindPoints.map(function (_finded, index) {
+          var myLi = L.DomUtil.create("li", "itemSearched", myUl);
+          const liP = document.getElementsByClassName("itemSearched")[index];
+          liP.innerHTML = `<p>` + _finded.lote + "</p>";
+          L.DomEvent.on(myLi, "click", function (e) {
+            this.finalDestinyLat = _finded.lat;
+            this.finalDestinyLong = _finded.lan;
+            input.value = _finded.lote;
+            result.innerHTML = "";
+            localStorage.setItem("point", JSON.stringify(_finded));
+          });
+        });
       },
       this
     );
-
-    const result = L.DomUtil.create("div", "results-search", search);
   },
-
   _showSharePopup: function () {
     L.DomUtil.addClass(this._shareButton, "share-popup-visible");
     var overlay = L.DomUtil.create("div", "share-overlay", this._sharePopup);
@@ -242,6 +263,9 @@ var Control = L.Control.extend({
     }
   },
 
+  setPoints: function (points) {
+    this._points = points;
+  },
   _downloadGPX: function () {
     if (this.routeGeoJSON) {
       var properties = this.routeGeoJSON.properties;
@@ -339,7 +363,7 @@ var Control = L.Control.extend({
 });
 
 module.exports = {
-  control: function (localization, languages, options) {
-    return new Control(localization, languages, options);
+  control: function (localization, languages, options, points) {
+    return new Control(localization, languages, options, points);
   },
 };

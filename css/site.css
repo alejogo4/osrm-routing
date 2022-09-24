@@ -1095,8 +1095,8 @@ td.distance {
   outline: none;
   /* box-shadow: none; */
   border: none;
-  box-shadow: 16px 10px 19px -4px rgb(0 0 0 / 17%);
-  border: 1px solid #8e8e8e;
+  box-shadow: 16px 10px 19px -4px rgba(196, 196, 196, 0.17);
+  border: 1px solid #cecece;
   padding-left: 20px;
 }
 
@@ -1118,10 +1118,34 @@ td.distance {
   left: 10.4%;
   width: 58%;
   top: 46px;
-  min-height: 50px;
+  min-height: 0px;
   border-radius: 3px;
   box-shadow: 16px 10px 19px -4px rgb(0 0 0 / 17%);
-  border: 1px solid #8e8e8e;
+  border: 1px solid #cecece;
   padding: 16px;
   background: white;
+}
+
+.results-search ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.results-search ul li {
+  list-style: none;
+  color: rgb(60, 64, 67);
+  font-size: 13px;
+  padding: 6px;
+  margin: 0;
+  padding-left: 12px;
+}
+
+.results-search ul li:hover {
+  background-color: rgba(60, 64, 67, 0.04);
+}
+
+.results-search ul li p {
+  padding: 0px !important;
+  margin: 0;
 }

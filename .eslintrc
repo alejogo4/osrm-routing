@@ -1,7 +1,9 @@
 {
   "env": {
+    "es6": true,
     "node": true,
-    "browser": true
+    "browser": true,
+    "mocha": true
   },
   "globals": {
     "L": true
@@ -30,5 +32,13 @@
     "no-shadow": 0,
     "no-alert": 0,
     "consistent-return": 0
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+          "jsx": true
+      }
   }
 }
