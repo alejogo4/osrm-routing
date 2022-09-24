@@ -1091,11 +1091,11 @@ td.distance {
   width: 57%;
   top: 10px;
   height: 31px;
-  border-radius: 14px;
+  border-radius: 14px 14px 2px 2px;
   outline: none;
   /* box-shadow: none; */
   border: none;
-  box-shadow: 16px 10px 19px -4px rgba(196, 196, 196, 0.17);
+  box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
   border: 1px solid #cecece;
   padding-left: 20px;
 }
@@ -1105,31 +1105,35 @@ td.distance {
 }
 
 .icon-search {
-  width: 25px;
-  height: 25px;
-  background: rebeccapurple;
+  width: 19px;
+  height: 15px;
+  background: url("../images/search.png");
   position: fixed;
-  left: 66%;
-  top: 13px;
+  background-size: contain;
+  left: 66.5%;
+  top: 16px;
 }
 
 .results-search {
   position: fixed;
-  left: 10.4%;
-  width: 58%;
-  top: 46px;
+  left: 10%;
+  width: 57%;
+  top: 40px;
   min-height: 0px;
   border-radius: 3px;
   box-shadow: 16px 10px 19px -4px rgb(0 0 0 / 17%);
   border: 1px solid #cecece;
-  padding: 16px;
+  padding: 0px !important;
   background: white;
+  z-index: -1;
 }
 
 .results-search ul {
   margin: 0;
   padding: 0;
   list-style: none;
+  padding: 16px;
+  margin-right: 20px;
 }
 
 .results-search ul li {
@@ -1148,4 +1152,13 @@ td.distance {
 .results-search ul li p {
   padding: 0px !important;
   margin: 0;
+}
+
+.placeholder-search {
+  color: #9e8787;
+  /* display: -webkit-inline-box; */
+  display: block;
+  width: 100%;
+  /* margin-left: 16px; */
+  text-align: center;
 }

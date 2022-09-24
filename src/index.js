@@ -15,6 +15,7 @@ var localization = require("./localization");
 require("./polyfill");
 
 var parsedOptions = links.parse(window.location.search.slice(1));
+console.log(parsedOptions);
 var mergedOptions = L.extend(leafletOptions.defaultState, parsedOptions);
 var local = localization.get(mergedOptions.language);
 

@@ -131,7 +131,9 @@ var Control = L.Control.extend({
     input.setAttribute("placeholder", "Ingresa el lote hacia donde te diriges");
     L.DomUtil.create("div", "icon-search", search);
     const result = L.DomUtil.create("div", "results-search", search);
-
+    var myp = L.DomUtil.create("p", "placeholder-search", result);
+    myp.innerHTML =
+      "Prueba escribir el lote hacia donde te diriges ej: Lote 123";
     L.DomEvent.on(
       input,
       "keypress",
