@@ -352,17 +352,8 @@ var finalDestinyLong = null;
 addWaypoint();
 
 function addCustomWaypoint(origin, destination) {
-  var length = lrmControl.getWaypoints().filter(function (pnt) {
-    return pnt.latLng;
-  });
-  length = length.length;
-
-  console.log("A");
   lrmControl.spliceWaypoints(0, 1, origin);
-  if (length <= 1) {
-    console.log("B");
-    lrmControl.spliceWaypoints(1, 1, destination);
-  }
+  lrmControl.spliceWaypoints(1, 1, destination);
 }
 
 setInterval(function () {
