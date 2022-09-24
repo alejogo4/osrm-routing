@@ -14,17 +14,6 @@ var state = require("./state");
 var localization = require("./localization");
 require("./polyfill");
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAoEbGJGO9MGd0xZzyjhcyCYwELVH2Xh2g",
-  authDomain: "monteserenoapp-91eed.firebaseapp.com",
-  projectId: "monteserenoapp-91eed",
-  storageBucket: "monteserenoapp-91eed.appspot.com",
-  messagingSenderId: "698220860239",
-  appId: "1:698220860239:web:7f00820548d8bb74722b3a",
-};
-
-// Initialize Firebase
-
 var parsedOptions = links.parse(window.location.search.slice(1));
 var mergedOptions = L.extend(leafletOptions.defaultState, parsedOptions);
 var local = localization.get(mergedOptions.language);
