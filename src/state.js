@@ -73,6 +73,9 @@ var State = L.Class.extend({
     var container = document.getElementsByClassName(
       "leaflet-control-container"
     )[0];
+    var url = new URL(window.location.href);
+    var srvActive = url.searchParams.get("srv");
+
     var buttonsServices = L.DomUtil.create("div", "button-services", container);
     var car = L.DomUtil.create(
       "button",
@@ -84,6 +87,14 @@ var State = L.Class.extend({
       "button-services-action",
       buttonsServices
     );
+
+    if (srvActive == 0) {
+      L.DomUtil.addClass(car, "hover-button");
+    }
+
+    if (srvActive == 2) {
+      L.DomUtil.addClass(foot, "hover-button");
+    }
 
     L.setOptions(this, options);
     L.Util.setOptions(this._lrm.options.router, {

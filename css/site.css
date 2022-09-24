@@ -1218,3 +1218,7 @@ td.distance {
   border: 1px solid rgb(209, 209, 209) !important;
   padding: 4px;
 }
+
+.hover-button {
+  filter: invert();
+}
