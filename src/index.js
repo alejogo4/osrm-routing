@@ -352,6 +352,7 @@ function addCustomWaypoint(origin, destination) {
   lrmControl.spliceWaypoints(1, 1, destination);
 }
 
+/*
 setInterval(function () {
   navigator.geolocation.getCurrentPosition(showPosition);
   //addWaypoint();
@@ -369,7 +370,7 @@ setInterval(function () {
       L.latLng(finalDestinyLat, finalDestinyLong)
     );
   }
-}, 2000);
+}, 2000);*/
 
 var url = new URL(window.location.href);
 
@@ -382,3 +383,45 @@ if (!url.searchParams.get("srv")) {
         JSON.parse(point).lote)
     : null;
 }
+
+var id;
+var target;
+var options;
+
+function success(pos) {
+  const crd = pos.coords;
+  initLatitude = crd.latitude;
+  initLongitude = crd.longitude;
+
+  if (localStorage.getItem("point")) {
+    var point = JSON.parse(localStorage.getItem("point"));
+    if (finalDestinyLat != point.lat) {
+      finalDestinyLat = point.lat;
+      finalDestinyLong = point.lan;
+    }
+  }
+  if (finalDestinyLat && finalDestinyLong) {
+    console.log(finalDestinyLat, finalDestinyLong);
+    addCustomWaypoint(
+      L.latLng(initLatitude, initLongitude),
+      L.latLng(finalDestinyLat, finalDestinyLong)
+    );
+  }
+}
+
+function error(err) {
+  console.error(err.code, err.message);
+}
+
+target = {
+  latitude: 0,
+  longitude: 0,
+};
+
+options = {
+  enableHighAccuracy: true,
+  timeout: 1500,
+  maximumAge: 0,
+};
+
+id = navigator.geolocation.watchPosition(success, error, options);
